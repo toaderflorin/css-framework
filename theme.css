@@ -1,0 +1,32 @@
+#footer {
+  font-size: 14px;
+  color: #777;
+}
+
+.page {
+  display: grid;
+  margin: 0;
+  height: 100vh;
+  background-color: white;
+  padding: 10px;
+}
+
+.content-center {
+  justify-self: center;
+  align-self: center;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.small-width {
+  width: 960px;
+}
+
+.inner {
+  margin: auto;
+  width: 960px;
+  padding: 10px;
+}
+

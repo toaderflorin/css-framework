@@ -1,0 +1,28 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col-1 {
+  grid-column-start: span 1;
+}
+
+.col-2 {
+  grid-column-start: span 2;
+}
+
+.col-3 {
+  grid-column-start: span 3;
+}
+
+.col-4 {
+  grid-column-start: span 4;
+}
+
+.col-6 {
+  grid-column-start: span 6;
+}
+
+.col-8 {
+  grid-column-start: span 8;
+}
