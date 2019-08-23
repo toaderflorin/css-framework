@@ -11,6 +11,12 @@
   padding: 10px;
 }
 
+.header-grid {
+  display: grid;
+  grid-template-rows: 100px 1fr 100px;
+  height: 100vh;
+}
+
 .content-center {
   justify-self: center;
   align-self: center;
