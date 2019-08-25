@@ -1,10 +1,27 @@
+:root {
+  --font-family: 'Catamaran', sans-serif;
+  --accent-color: red;
+  --text-color: #222;
+  --font-size: 15px;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Catamaran', sans-serif;
-  font-size: 15px;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
   line-height: 1.6;
-  color: #222;
+  color: var(--text-color);
 }
 
 section {
@@ -15,16 +32,18 @@ section {
 
 button {
   margin-top: 10px;
-  border: 1px solid red;
+  border: 1px solid var(--accent-color);
   border-radius: 7px;
-  background: red;
-  color: white;
+  background: white;
+  color: black;
   padding: 8px 0px;
   font-size: 15px;
-  font-family: 'Catamaran', sans-serif;
+  font-family: var(--font-family);
   width: 102px;
   cursor: pointer;
-  text-shadow: 1px 1px black;
+  text-shadow: 1px 1px rgba(0, 0, 0,  0.5);
+  animation-name: slidein;
+  animation-duration: 1s;
 }
 
 button:focus {
@@ -47,8 +66,8 @@ input[type=button] {
 input[type=select] {
   border: 1px solid red;
   border-radius: 7px;
-  background: red;
-  color: white;
+  background: white;
+  color: black;
   padding: 8px 0px;
   font-size: 15px;
   font-family: 'Catamaran', sans-serif;
