@@ -44,7 +44,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    window.setInterval(tick, 500)
+    window.setInterval(tick, 10)
 
     allElements = document.querySelectorAll('[p-animation]')
     allElements.forEach((e) => {
@@ -59,12 +59,22 @@
   tick = () => {
     // if the animation is going past something
     allElements.forEach((e) => {
-      if (e.animationRunning) {
-        const targetPercentage = rect.top / window.innerHeight * 100
-        console.log('Target percentage', targetPercentage)
+      const rect = e.getBoundingClientRect()
+      const targetPercentage = rect.top / window.innerHeight * 100
+        
+      if (e.animationRunning) {  
+        if (targetPercentage > 0) {
+          console.log('Animation running', targetPercentage, e.animationProgress)        
 
-        e.animationProgress++
-        if (e.animationProgres > 0)
+          if (e.animationProgress > targetPercentage) {
+            console.log('Stopped')
+            e.style.animationPlayState = "paused"
+          } else {
+            console.log('Got here')
+            e.animationProgress += 0.7
+            e.style.animationPlayState = "running"
+          }
+        }
       }      
     })
   }
