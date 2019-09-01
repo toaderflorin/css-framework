@@ -1,13 +1,12 @@
 (function () {
-  const puppeteer = {
-    animations: {},
-    _allGroups: [],
-    _allElements: [],
-    _allGroupElements: [],
-    _allElementsSet: new Set(),
-    _windowOffset: 0,
-    _scrollUp: false
-  }
+  const animations = {}
+  const allGroups = []
+  const allGroupElements = []
+  const allElementsSet = new Set()
+  
+  let allElements = []
+  let windowOffset = 0
+  let scrollUp = false
 
   snakeToCamel = (s) => {
     return s.replace(/(\-\w)/g, (m) => { 
@@ -16,6 +15,7 @@
   }
 
   animationStart = (e) => {
+    e.target.animationProgress = 0
     e.target.animationRunning = true
   }
 
@@ -24,19 +24,19 @@
   }
 
   update = () => {
-    puppeteer._allElementsSet.forEach((elem) => {
+    allElementsSet.forEach((elem) => {
       const rect = elem.getBoundingClientRect()
-      const anim = elem.getAttribute('p-animation') 
+      const anim = elem.getAttribute('p-animation')
 
-      if (rect.top < window.innerHeight && rect.top > 0 && !puppeteer._scrollUp) {
-        if (!elem.visible) {          
+      if (rect.top < window.innerHeight && rect.top > 0 && !scrollUp) {
+        if (!elem.visible) {
           window.setTimeout(() => {
             elem.style.animation = `${anim} 1s 1`
           })
 
           elem.visible = true
         }
-      } else if (puppeteer._scrollUp && rect.top > window.innerHeight) {
+      } else if (scrollUp && rect.top > window.innerHeight) {
         elem.style.animation = undefined
         elem.visible = false
       }
@@ -46,9 +46,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     window.setInterval(tick, 500)
 
-    puppeteer._allElements = document.querySelectorAll('[p-animation]')
-    puppeteer._allElements.forEach((e) => {
-      puppeteer._allElementsSet.add(e)
+    allElements = document.querySelectorAll('[p-animation]')
+    allElements.forEach((e) => {
+      allElementsSet.add(e)
       e.addEventListener('animationstart', animationStart)
       e.addEventListener('animationend', animationEnd)      
     })
@@ -58,17 +58,25 @@
 
   tick = () => {
     // if the animation is going past something
-    console.log('Tick')
+    allElements.forEach((e) => {
+      if (e.animationRunning) {
+        const targetPercentage = rect.top / window.innerHeight * 100
+        console.log('Target percentage', targetPercentage)
+
+        e.animationProgress++
+        if (e.animationProgres > 0)
+      }      
+    })
   }
 
   document.addEventListener('scroll', (e) => {
-    if (window.pageYOffset < puppeteer._windowOffset) {
-      puppeteer._scrollUp = true
+    if (window.pageYOffset < windowOffset) {
+      scrollUp = true
     } else {
-      puppeteer._scrollUp = false
+      scrollUp = false
     }
 
-    puppeteer._windowOffset = window.pageYOffset
+    windowOffset = window.pageYOffset
     update()
   })
 })()
