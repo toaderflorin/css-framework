@@ -6,34 +6,24 @@
     _allGroupElements: [],
     _allElementsSet: new Set(),
     _windowOffset: 0,
-    _scrollUp = false
+    _scrollUp: false
   }
 
-  const snakeToCamel = (s) => {
+  snakeToCamel = (s) => {
     return s.replace(/(\-\w)/g, (m) => { 
       return m[1].toUpperCase() 
     })
   }
 
-  const animationStart = (e) => {
+  animationStart = (e) => {
     e.target.animationRunning = true
-    // console.log('Animation start', e)
   }
 
-  const animationEnd = (e) => {
+  animationEnd = (e) => {
     e.target.animationRunning = false
-    // console.log('Animation end', e)
   }
-  
-  const showPercent = window.setInterval(() => {
-    if (currentPercent < 100) {
-      currentPercent += 1
-    } else {
-      currentPercent = 0
-    }
-  }, 40)
 
-  const update = () => {
+  update = () => {
     puppeteer._allElementsSet.forEach((elem) => {
       const rect = elem.getBoundingClientRect()
       const anim = elem.getAttribute('p-animation') 
@@ -42,9 +32,6 @@
         if (!elem.visible) {          
           window.setTimeout(() => {
             elem.style.animation = `${anim} 1s 1`
-            elem.animationStart = animationStart
-            elem.animationEnd = animationEnd
-            elem.animationIteration = animationIteration
           })
 
           elem.visible = true
@@ -70,6 +57,7 @@
   })
 
   tick = () => {
+    // if the animation is going past something
     console.log('Tick')
   }
 
